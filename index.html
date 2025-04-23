@@ -1,3 +1,4 @@
+<!-- index.html (inchangé) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kings of Sales Trip Calculator</title>
   <link rel="stylesheet" href="styles.css">
+  <!-- Librairies ExcelJS + FileSaver -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 </head>
 <body>
 
@@ -38,11 +42,15 @@
         <label>Leader LE:</label><input type="number" id="LeaderLE">
         <label>Currency:</label><input type="number" id="Currency">
         <label>Profit Percentage:</label><input type="number" id="ProfitPercentage">
+        <!-- Nouveaux champs -->
+        <label>Total Destination USD:</label><input type="number" id="TotalDestination">
+        <label>Profit Dest %:</label><input type="number" id="ProfitDestPercentage">
       </div>
 
       <div class="buttons">
         <button type="button" onclick="calculatePrice()">🧮 Calculate</button>
         <button type="reset">🔄 Reset</button>
+        <button type="button" onclick="exportExcel()">📥 Export Excel</button>
       </div>
 
       <h2 id="result">Price Per Pax:</h2>
