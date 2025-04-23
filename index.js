@@ -1,40 +1,55 @@
-function getNumber(id) {
-  const el = document.getElementById(id);
-  return parseFloat(el?.value || "0");
+/* styles.css (inchangé) */
+body {
+  background-color: #111315;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 20px;
 }
 
-function calculatePrice() {
-  const pax = getNumber("Pax");
-  const cur = getNumber("Currency");
+.container {
+  max-width: 1000px;
+  margin: auto;
+}
 
-  const transfers = (
-    getNumber("AirportPriceLE") * getNumber("HowManyAirports") +
-    getNumber("Sightseeing") * getNumber("SightseeingValueLE") +
-    getNumber("OtherTransfersLE")
-  ) / cur / pax;
+h1 {
+  text-align: center;
+  color: springgreen;
+}
 
-  const gratuities = (
-    getNumber("GuideLE") * getNumber("Sightseeing") +
-    getNumber("LeaderLE")
-  ) / cur / pax;
+.form-grid {
+  display: grid;
+  grid-template-columns: auto 1fr auto 1fr;
+  gap: 10px 16px;
+  margin-top: 20px;
+}
 
-  const accommodation =
-    getNumber("CairoAccommodationUSD") * getNumber("CairoNights") +
-    getNumber("LuxorAccommodationUSD") * getNumber("LuxorNights") +
-    getNumber("AswanAccommodationUSD") * getNumber("AswanNights") +
-    getNumber("HurghadaAccommodationUSD") * getNumber("HurghadaNights") +
-    getNumber("CruiseAccommodationUSD") * getNumber("CruiseNights");
+.form-grid input {
+  padding: 6px;
+  border-radius: 6px;
+  background-color: #1b1e22;
+  color: white;
+  border: none;
+}
 
-  const expenses = (
-    getNumber("LunchLE") + getNumber("TicketsLE")
-  ) / cur;
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 10px;
+}
 
-  let egypt = getNumber("FlightsUSD") + expenses + accommodation + gratuities + transfers;
-  egypt *= 1 + getNumber("ProfitPercentage") / 100;
-  egypt += getNumber("OtherOptionsUSD");
+button {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background-color: #1e90ff;
+  border: 2px solid #104e8b;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-  const grand = egypt + getNumber("InternationalFlightsUSD");
-
-  const result = document.getElementById("result");
-  result.textContent = `Price Per Pax: ${grand.toFixed(2)} USD`;
+h2#result {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.3em;
 }
