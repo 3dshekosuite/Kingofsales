@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kings of Sales Trip Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>💼 Kings of Sales Trip Calculator</h1>
+    <form>
+      <div class="form-grid">
+        <label>Pax:</label><input type="number" id="Pax">
+        <label>Client Name:</label><input type="text" id="ClientName">
+        <label>Airport Price LE:</label><input type="number" id="AirportPriceLE">
+        <label>How Many Airports:</label><input type="number" id="HowManyAirports">
+        <label>Sightseeing:</label><input type="number" id="Sightseeing">
+        <label>Sightseeing Value LE:</label><input type="number" id="SightseeingValueLE">
+        <label>Other Transfers LE:</label><input type="number" id="OtherTransfersLE">
+        <label>Cairo Accommodation USD:</label><input type="number" id="CairoAccommodationUSD">
+        <label>Cairo Nights:</label><input type="number" id="CairoNights">
+        <label>Luxor Accommodation USD:</label><input type="number" id="LuxorAccommodationUSD">
+        <label>Luxor Nights:</label><input type="number" id="LuxorNights">
+        <label>Aswan Accommodation USD:</label><input type="number" id="AswanAccommodationUSD">
+        <label>Aswan Nights:</label><input type="number" id="AswanNights">
+        <label>Hurghada Accommodation USD:</label><input type="number" id="HurghadaAccommodationUSD">
+        <label>Hurghada Nights:</label><input type="number" id="HurghadaNights">
+        <label>Cruise Accommodation USD:</label><input type="number" id="CruiseAccommodationUSD">
+        <label>Cruise Nights:</label><input type="number" id="CruiseNights">
+        <label>Lunch LE:</label><input type="number" id="LunchLE">
+        <label>Tickets LE:</label><input type="number" id="TicketsLE">
+        <label>Flights USD:</label><input type="number" id="FlightsUSD">
+        <label>Other Options USD:</label><input type="number" id="OtherOptionsUSD">
+        <label>International Flights USD:</label><input type="number" id="InternationalFlightsUSD">
+        <label>Guide LE:</label><input type="number" id="GuideLE">
+        <label>Leader LE:</label><input type="number" id="LeaderLE">
+        <label>Currency:</label><input type="number" id="Currency">
+        <label>Profit Percentage:</label><input type="number" id="ProfitPercentage">
+      </div>
+
+      <div class="buttons">
+        <button type="button" onclick="calculatePrice()">🧮 Calculate</button>
+        <button type="reset">🔄 Reset</button>
+      </div>
+
+      <h2 id="result">Price Per Pax:</h2>
+    </form>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>
