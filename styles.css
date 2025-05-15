@@ -53,3 +53,12 @@ h2#result {
   margin-top: 20px;
   font-size: 1.3em;
 }
+
+#footer {
+  grid-column: span 2;
+  text-align: center;
+  margin-top: 8px;
+  font-size: 13px;
+  color: #888;
+  font-style: italic;
+}
