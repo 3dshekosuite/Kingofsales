@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#08111f" />
+  <meta name="description" content="A premium travel quotation calculator for Kings of Sales." />
+  <title>Kings of Sales | Trip Calculator</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Excel export dependencies -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script defer src="index.js"></script>
+</head>
+<body>
+  <div class="page-glow page-glow-one" aria-hidden="true"></div>
+  <div class="page-glow page-glow-two" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Kings of Sales Trip Calculator">
+        <span class="brand-mark" aria-hidden="true">K<span>S</span></span>
+        <span class="brand-copy">
+          <strong>Kings of Sales</strong>
+          <small>Trip Calculator</small>
+        </span>
+      </a>
+
+      <div class="topbar-status">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>Smart quote workspace</span>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Travel pricing studio</p>
+          <h1 id="page-title">Price a remarkable trip<br><em>with total clarity.</em></h1>
+          <p class="hero-description">
+            Build polished, accurate per-traveler quotes in seconds — then export the exact same calculation logic to Excel.
+          </p>
+        </div>
+
+        <div class="hero-points" aria-label="Calculator highlights">
+          <div class="hero-point">
+            <span class="hero-point-icon" aria-hidden="true">✦</span>
+            <span><strong>Live pricing</strong><small>Updates as you type</small></span>
+          </div>
+          <div class="hero-point">
+            <span class="hero-point-icon" aria-hidden="true">↗</span>
+            <span><strong>Excel-ready</strong><small>Formulas remain editable</small></span>
+          </div>
+        </div>
+      </section>
+
+      <form id="tripCalculator" novalidate>
+        <div class="workspace-grid">
+          <div class="calculator-column">
+            <section class="form-card quote-brief" aria-labelledby="quote-brief-title">
+              <div class="section-heading compact-heading">
+                <div>
+                  <p class="section-kicker">01 — Quote brief</p>
+                  <h2 id="quote-brief-title">Start with the essentials</h2>
+                </div>
+                <span class="section-note">Fields marked * are key to the calculation.</span>
+              </div>
+
+              <div class="field-grid quote-grid">
+                <div class="field field-span-2">
+                  <label for="ClientName">Client name</label>
+                  <input type="text" id="ClientName" placeholder="e.g. Olivia Bennett" autocomplete="name" />
+                </div>
+
+                <div class="field">
+                  <label for="TripName">Trip name</label>
+                  <input type="text" id="TripName" placeholder="e.g. Egypt & Jordan Escape" />
+                </div>
+
+                <div class="field">
+                  <label for="QuoteDate">Quote date</label>
+                  <input type="date" id="QuoteDate" />
+                </div>
+
+                <div class="field required-field">
+                  <label for="Pax">Travelers <span aria-hidden="true">*</span></label>
+                  <input type="number" id="Pax" min="1" step="1" inputmode="numeric" placeholder="0" />
+                  <small>Number of guests sharing the quote.</small>
+                </div>
+
+                <div class="field required-field">
+                  <label for="Currency">EGP / USD rate <span aria-hidden="true">*</span></label>
+                  <input type="number" id="Currency" min="0" step="any" inputmode="decimal" placeholder="0.00" />
+                  <small>Used to convert local EGP costs.</small>
+                </div>
+              </div>
+            </section>
+
+            <section class="form-card" aria-labelledby="operations-title">
+              <div class="section-heading">
+                <div class="section-title-wrap">
+                  <span class="section-icon" aria-hidden="true">◌</span>
+                  <div>
+                    <p class="section-kicker">02 — Egypt operations</p>
+                    <h2 id="operations-title">Transfers, touring & local costs</h2>
+                  </div>
+                </div>
+                <span class="currency-tag">EGP inputs</span>
+              </div>
+
+              <div class="field-grid">
+                <div class="field">
+                  <label for="HowManyAirports">Airport transfers</label>
+                  <input type="number" id="HowManyAirports" min="0" step="1" inputmode="numeric" placeholder="0" />
+                  <small>How many airport movements.</small>
+                </div>
+
+                <div class="field">
+                  <label for="AirportPriceLE">Airport transfer value</label>
+                  <div class="input-with-unit"><input type="number" id="AirportPriceLE" min="0" step="any" inputmode="decimal" placeholder="0.00" /><span>EGP</span></div>
+                </div>
+
+                <div class="field">
+                  <label for="Sightseeing">Day tours</label>
+                  <input type="number" id="Sightseeing" min="0" step="1" inputmode="numeric" placeholder="0" />
+                </div>
+
+                <div class="field">
+                  <label for="SightseeingValueLE">Day-tour transfer value</label>
+                  <div class="input-with-unit"><input type="number" id="SightseeingValueLE" min="0" step="any" inputmode="decimal" placeholder="0.00" /><span>EGP</span></div>
+                </div>
+
+                <div class="field">
+                  <label for="OtherTransfersLE">Other transfers</label>
+                  <div class="input-with-unit"><input type="number" id="OtherTransfersLE" min="0" step="any" inputmode="decimal" placeholder="0.00" /><span>EGP</span></div>
+                </div>
+
+                <div class="field">
+                  <label for="GuideLE">Guide cost</label>
+                  <div class="input-with-unit"><input type="number" id="GuideLE" min="0" step="any" inputmode="decimal" placeholder="0.00" /><span>EGP</span></div>
+                </div>
+
+                <div class="field">
+                  <label for="LeaderLE">Tour leader cost</label>
+                  <div class="input-with-unit"><input type="number" id="LeaderLE" min="0" step="any" inputmode="decimal" placeholder="0.00" /><span>EGP</span></div>
+                </div>
+
+                <div class="field">
+                  <label for="LunchLE">Lunches</label>
+                  <div class="input-with-unit"><input type="number" id="LunchLE" min="0" step="any" inputmode="decimal" placeholder="0.00" /><span>EGP</span></div>
+                </div>
+
+                <div class="field">
+                  <label for="TicketsLE">Tickets</label>
+                  <div class="input-with-unit"><input type="number" id="TicketsLE" min="0" step="any" inputmode="decimal" placeholder="0.00" /><span>EGP</span></div>
+                </div>
+              </div>
+            </section>
+
+            <section class="form-card" aria-labelledby="stays-title">
+              <div class="section-heading">
+                <div class="section-title-wrap">
+                  <span class="section-icon" aria-hidden="true">⌂</span>
+                  <div>
+                    <p class="section-kicker">03 — Accommodation</p>
+                    <h2 id="stays-title">Stay costs per traveler</h2>
+                  </div>
+                </div>
+                <span class="currency-tag currency-tag-usd">USD inputs</span>
+              </div>
+
+              <p class="section-intro">Enter the number of nights and the per-night accommodation rate for each destination.</p>
+
+              <div class="stay-table" role="group" aria-label="Accommodation inputs">
+                <div class="stay-table-head" aria-hidden="true">
+                  <span>Destination</span><span>Nights</span><span>Rate / night</span>
+                </div>
+
+                <div class="stay-row">
+                  <span class="stay-name"><span class="city-dot cairo" aria-hidden="true"></span>Cairo</span>
+                  <label class="visually-hidden" for="CairoNights">Cairo nights</label>
+                  <input type="number" id="CairoNights" min="0" step="1" inputmode="numeric" placeholder="0" />
+                  <label class="visually-hidden" for="CairoAccommodationUSD">Cairo accommodation per night in USD</label>
+                  <div class="input-with-unit"><input type="number" id="CairoAccommodationUSD" min="0" step="any" inputmode="decimal" placeholder="0.00" /><span>USD</span></div>
+                </div>
+
+                <div class="stay-row">
+                  <span class="stay-name"><span class="city-dot luxor" aria-hidden="true"></span>Luxor</span>
+                  <label class="visually-hidden" for="LuxorNights">Luxor nights</label>
+                  <input type="number" id="LuxorNights" min="0" step="1" inputmode="numeric" placeholder="0" />
+                  <label class="visually-hidden" for="LuxorAccommodationUSD">Luxor accommodation per night in USD</label>
+                  <div class="input-with-unit"><input type="number" id="LuxorAccommodationUSD" min="0" step="any" inputmode="decimal" placeholder="0.00" /><span>USD</span></div>
+                </div>
+
+                <div class="stay-row">
+                  <span class="stay-name"><span class="city-dot aswan" aria-hidden="true"></span>Aswan</span>
+                  <label class="visually-hidden" for="AswanNights">Aswan nights</label>
+                  <input type="number" id="AswanNights" min="0" step="1" inputmode="numeric" placeholder="0" />
+                  <label class="visually-hidden" for="AswanAccommodationUSD">Aswan accommodation per night in USD</label>
+                  <div class="input-with-unit"><input type="number" id="AswanAccommodationUSD" min="0" step="any" inputmode="decimal" placeholder="0.00" /><span>USD</span></div>
+                </div>
+
+                <div class="stay-row">
+                  <span class="stay-name"><span class="city-dot red-sea" aria-hidden="true"></span>Red Sea</span>
+                  <label class="visually-hidden" for="HurghadaNights">Red Sea nights</label>
+                  <input type="number" id="HurghadaNights" min="0" step="1" inputmode="numeric" placeholder="0" />
+                  <label class="visually-hidden" for="HurghadaAccommodationUSD">Red Sea accommodation per night in USD</label>
+                  <div class="input-with-unit"><input type="number" id="HurghadaAccommodationUSD" min="0" step="any" inputmode="decimal" placeholder="0.00" /><span>USD</span></div>
+                </div>
+
+                <div class="stay-row">
+                  <span class="stay-name"><span class="city-dot cruise" aria-hidden="true"></span>Nile Cruise</span>
+                  <label class="visually-hidden" for="CruiseNights">Nile Cruise nights</label>
+                  <input type="number" id="CruiseNights" min="0" step="1" inputmode="numeric" placeholder="0" />
+                  <label class="visually-hidden" for="CruiseAccommodationUSD">Nile Cruise accommodation per night in USD</label>
+                  <div class="input-with-unit"><input type="number" id="CruiseAccommodationUSD" min="0" step="any" inputmode="decimal" placeholder="0.00" /><span>USD</span></div>
+                </div>
+              </div>
+            </section>
+
+            <section class="form-card" aria-labelledby="commercial-title">
+              <div class="section-heading">
+                <div class="section-title-wrap">
+                  <span class="section-icon" aria-hidden="true">✦</span>
+                  <div>
+                    <p class="section-kicker">04 — Air & commercial</p>
+                    <h2 id="commercial-title">Flights, options & Egypt margin</h2>
+                  </div>
+                </div>
+                <span class="currency-tag currency-tag-usd">USD inputs</span>
+              </div>
+
+              <div class="field-grid">
+                <div class="field">
+                  <label for="FlightsUSD">Domestic flights</label>
+                  <div class="input-with-unit"><input type="number" id="FlightsUSD" min="0" step="any" inputmode="decimal" placeholder="0.00" /><span>USD</span></div>
+                </div>
+
+                <div class="field">
+                  <label for="OtherOptionsUSD">Other options</label>
+                  <div class="input-with-unit"><input type="number" id="OtherOptionsUSD" min="0" step="any" inputmode="decimal" placeholder="0.00" /><span>USD</span></div>
+                  <small>Added after Egypt margin, exactly as in your original model.</small>
+                </div>
+
+                <div class="field">
+                  <label for="InternationalFlightsUSD">International flights</label>
+                  <div class="input-with-unit"><input type="number" id="InternationalFlightsUSD" min="0" step="any" inputmode="decimal" placeholder="0.00" /><span>USD</span></div>
+                  <small>Added with no profit margin.</small>
+                </div>
+
+                <div class="field accent-field">
+                  <label for="ProfitPercentage">Egypt profit</label>
+                  <div class="input-with-unit"><input type="number" id="ProfitPercentage" min="0" max="100" step="any" inputmode="decimal" placeholder="0" /><span>%</span></div>
+                </div>
+              </div>
+            </section>
+
+            <section class="form-card destination-card" aria-labelledby="destination-title">
+              <div class="section-heading">
+                <div class="section-title-wrap">
+                  <span class="section-icon" aria-hidden="true">⌁</span>
+                  <div>
+                    <p class="section-kicker">05 — Add-on destination</p>
+                    <h2 id="destination-title">Destination cost & margin</h2>
+                  </div>
+                </div>
+                <span class="optional-tag">Optional</span>
+              </div>
+
+              <div class="field-grid">
+                <div class="field">
+                  <label for="TotalDestination">Destination base cost</label>
+                  <div class="input-with-unit"><input type="number" id="TotalDestination" min="0" step="any" inputmode="decimal" placeholder="0.00" /><span>USD</span></div>
+                  <small>Per traveler, before destination profit.</small>
+                </div>
+
+                <div class="field accent-field">
+                  <label for="ProfitDestPercentage">Destination profit</label>
+                  <div class="input-with-unit"><input type="number" id="ProfitDestPercentage" min="0" max="100" step="any" inputmode="decimal" placeholder="0" /><span>%</span></div>
+                </div>
+              </div>
+            </section>
+
+            <details class="formula-note">
+              <summary>How is the price calculated?</summary>
+              <div>
+                <p>Transfers and guide costs are divided by the number of travelers after EGP-to-USD conversion. Accommodation, domestic flights, tickets and lunches follow the same calculation model from your original app.</p>
+                <p>Egypt profit is added to Egypt operating costs only; other options and international flights are then added separately. Destination profit is calculated independently.</p>
+              </div>
+            </details>
+
+            <div class="form-actions" aria-label="Calculator actions">
+              <button class="button button-secondary" type="button" id="calculateButton">
+                <span aria-hidden="true">↻</span> Refresh quote
+              </button>
+              <button class="button button-ghost" type="button" id="resetButton">
+                <span aria-hidden="true">×</span> Clear all
+              </button>
+            </div>
+          </div>
+
+          <aside class="summary-card" aria-labelledby="summary-title">
+            <div class="summary-heading">
+              <div>
+                <p class="section-kicker">Live quote</p>
+                <h2 id="summary-title">Quote overview</h2>
+              </div>
+              <span class="live-badge"><i aria-hidden="true"></i>Live</span>
+            </div>
+
+            <p class="summary-client" id="summaryClient">Add your client details to begin.</p>
+
+            <div class="total-panel">
+              <span>Estimated price per traveler</span>
+              <strong id="result" aria-live="polite">—</strong>
+              <small id="priceHint">Enter travelers and the EGP / USD rate.</small>
+            </div>
+
+            <div class="summary-breakdown" aria-label="Price breakdown">
+              <div class="summary-row">
+                <span>Egypt total</span>
+                <strong id="egyptTotal">$0.00</strong>
+              </div>
+              <div class="summary-row">
+                <span>International flights</span>
+                <strong id="internationalTotal">$0.00</strong>
+              </div>
+              <div class="summary-row">
+                <span>Destination add-on</span>
+                <strong id="destinationTotal">$0.00</strong>
+              </div>
+            </div>
+
+            <div class="summary-divider"></div>
+
+            <div class="summary-insights">
+              <div class="insight-row"><span>Accommodation</span><strong id="accommodationTotal">$0.00</strong></div>
+              <div class="insight-row"><span>Egypt operating base</span><strong id="egyptBaseTotal">$0.00</strong></div>
+              <div class="insight-row"><span>Egypt margin</span><strong id="egyptMarginTotal">$0.00</strong></div>
+            </div>
+
+            <p class="summary-status" id="statusMessage" role="status">Your draft saves automatically in this browser.</p>
+
+            <div class="summary-actions">
+              <button class="button button-primary button-full" type="button" id="exportButton">
+                <span aria-hidden="true">↓</span> Export smart Excel
+              </button>
+              <button class="button button-copy button-full" type="button" id="copyButton">
+                <span aria-hidden="true">⧉</span> Copy quote summary
+              </button>
+            </div>
+
+            <p class="excel-note"><span aria-hidden="true">✦</span> The Excel file contains live formulas — edit the blue cells and every total recalculates.</p>
+          </aside>
+        </div>
+      </form>
+    </main>
+
+    <footer>
+      <span>Designed by Shreef Ammar</span>
+      <span class="footer-separator" aria-hidden="true">•</span>
+      <span>Premium travel pricing workspace</span>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
